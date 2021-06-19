@@ -15,7 +15,7 @@ This project automates the manual working of FYP(final year projects) of univers
 - Request Supervisor
 - View Guidelines
 - Add meetingLogs
--Upload Document
+- Upload Document
 ## Supervisor
 - Login
 - Accept/Reject Request
