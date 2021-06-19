@@ -1,0 +1,50 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+    <div class="row">
+        <% include ../partials/side_nav %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<h2>Students list</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% data.forEach(function(student){%>
+            
+     <% if (student.role==="student"||student.role==="user") { %> 
+      <tr>
+        
+        
+        <td><%= student.rollno %></td>
+        <td><%= student.name %></td>
+        <td><%= student.email %></td>
+   
+         
+        <td> 
+            <% if (user.role==="admin") { %> 
+                <form action="/users/<%= student.id %>?_method=DELETE" method="post">
+                <button class="btn btn-danger">Delete</button>
+                <a href="/users/update/<%= student.id %>" class="btn btn-info">edit</a>
+                </form>
+                <%}%>
+            <%}%>
+         
+        </td>
+             
+      </tr>
+      <% }); %> 
+     
+    </tbody>
+  </table>
+</div>
+</main>
+    </div>
+</div>

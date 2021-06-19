@@ -1,0 +1,174 @@
+<!-- modal for group checking -->
+<div
+  class="modal fade"
+  id="groupModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Check Documents</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/groups/groups_checked/'+recipient">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="recipient-name"
+              name="Username"
+              value=""
+              disabled
+            />
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"
+              >Proposal Document</label
+            >
+            <br />
+            <a href="/groups/download/<%=group.proposal %>" id="psl"></a>
+            <br />
+            <input
+              type="button"
+              class="btn btn-success"
+              id="pslbtn"
+              value="Check"
+            />
+            <a href="" id="pslA" class="float-right"></a>
+            <input
+              style="width: 25%"
+              type="text"
+              class="form-control"
+              name="proposalA"
+              placeholder="pending"
+              value=""
+              readonly
+              hidden
+            />
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"
+              >Progress Document</label
+            >
+            <br />
+            <a href="/groups/download/<%=group.progress %>" id="prg"></a>
+            <br />
+            <input
+              type="button"
+              class="btn btn-success"
+              id="prgbtn"
+              value="Check"
+            />
+            <a href="" id="prgA" class="float-right"></a>
+            <input
+              style="width: 25%"
+              type="text"
+              class="form-control"
+              name="progressA"
+              placeholder="pending"
+              value=""
+              readonly
+              hidden
+            />
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"
+              >Final Document</label
+            >
+            <br />
+            <a href="/groups/download/<%=group.final %>" id="fnl"></a>
+            <br />
+            <input
+              type="button"
+              class="btn btn-success"
+              id="fnlbtn"
+              value="Check"
+            />
+            <a href="" id="fnlA" class="float-right"></a>
+            <input
+              style="width: 25%"
+              type="text"
+              class="form-control"
+              name="finalA"
+              placeholder="pending"
+              value=""
+              readonly
+              hidden
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#groupModal").on("show.bs.modal", function (event) {
+    // Button that triggered the modal
+    //   var recipient = button.data('whatever') // Extract info from data-* attributes
+    var modal = $(this);
+    //get data-id attribute of the clicked element
+    var recipient = $(event.relatedTarget).data("id");
+    var Username = $(event.relatedTarget).data("whatever");
+    var Proposal = $(event.relatedTarget).data("psl").proposal;
+    var Progress = $(event.relatedTarget).data("prg").progress;
+    var Final = $(event.relatedTarget).data("fnl").final;
+    let ProposalApproved = $(event.relatedTarget).data("psl").pslA;
+    var ProgressApproved = $(event.relatedTarget).data("prg").prgA;
+    var FinalApproved = $(event.relatedTarget).data("fnl").fnlA;
+
+    //populate the textbox
+
+    modal.find('input[name="Username"]').val(Username);
+    $("#psl").html(Proposal);
+    $("#prg").html(Progress);
+    $("#fnl").html(Final);
+    $("#pslA").html(ProposalApproved);
+    $("#prgA").html(ProgressApproved);
+    $("#fnlA").html(FinalApproved);
+
+    $("#pslbtn").click(function () {
+      $("#pslbtn").val("approved");
+      $('input[name="proposalA"]').val("Approved");
+    });
+    $("#prgbtn").click(function () {
+      $("#prgbtn").val("approved");
+      $('input[name="progressA"]').val("Approved");
+      if ($('input[name="progressA"]').val("Approved")) {
+        $('input[name="proposalA"]').val("Approved");
+      }
+    });
+    $("#fnlbtn").click(function () {
+      $("#fnlbtn").val("approved");
+      $('input[name="finalA"]').val("Approved");
+      if ($('input[name="finalA"]').val("Approved")) {
+        $('input[name="proposalA"]').val("Approved");
+        $('input[name="progressA"]').val("Approved");
+      }
+    });
+
+    modal.find("form").attr("action", "/groups/groups_checked/" + recipient);
+  });
+</script>

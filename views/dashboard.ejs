@@ -1,3 +1,139 @@
-<h1 class="mt-4">Dashboard</h1>
-<p class="lead mb-3">Welcome <%= user.name %></p>
-<a href="/users/logout" class="btn btn-secondary">Logout</a>
+
+<style>
+    .container{
+        max-width:100%;
+        /* padding-left: 0;
+        padding-right: 0; */
+        padding: 0 0 15px 0
+    };
+    #row_style {
+              margin-top: 30px;
+          }
+      
+          #submit {
+              display: block;
+              margin: auto;
+          }
+</style>
+<% include ./partials/navbar %>
+ <div class="container-fluid" id="reload">
+    <div class="row">
+      <% include ./partials/side_nav %>     
+     
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1>Dashboard     </h1>
+          <!-- request button -->
+
+         
+   
+          <div class="dropdown" >
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-user-plus"></i>
+            <span class="caret"></span></button>
+              <ul class="dropdown-menu" style="width: 300px; height: 400px; overflow-y: scroll;">
+                
+                <% if (user.request) { %> 
+                  <% newfriend.forEach(function(supervisor){%>
+                <li style="border-bottom: 1px solid lightgray">
+                  <a href="#">
+                        <div style="width: 50%; display: inline;">
+                
+                          <h4><%= supervisor.name %></h4>
+                          <input type="hidden" name="senderId" id="senderId" value="<%= supervisor.userId %>">
+                      
+                          <input type="hidden" name="senderName" id="senderName" value="<%= supervisor.name %>">
+                          <button type="submit" id="accept_friend" class="btn btn-primary" style="width: 8em">Accept</button>
+                        </div>
+                        <div style="width: 50%;  display: inline;">
+                           <input type="hidden" name="user_Id" id="user_Id" value="<%= supervisor.userId %>">
+                           <input type="hidden" name="name" id="name" value="<%= supervisor.name %>">
+                          <button type="submit" id="cancel_friend" class="btn btn-primary" style="width: 8em">Cancel</button>
+                        </div>
+                          
+                  </a>
+                 
+                </li>
+                <% }); %> 
+               
+                <%}%>
+                  
+                <% if (user.request==0) { %>
+                   <h4 style="text-align:center">No requests</h4>
+        
+                  <%}%>
+   
+              </ul>
+            </div>
+        </div>
+        <% include ./partials/messages %>
+        <% if (user.role=="supervisor") { %>
+        <h6><%=user.available%></h6>
+<form action="/users/availablity/<%= user._id %>" method="post">
+        <div class="form-check form-check-inline bg">
+          <button style="border:hidden" class="bg-transparent" type="submit">
+            <input
+            class="form-check-input"
+            type="radio"
+            name="availablity"
+            id="exampleRadios1"
+            value="Available"
+           
+          />
+          <label class="form-check-label" for="exampleRadios1" > On </label>
+          </button>
+          
+        </div>
+        <div class="form-check form-check-inline bg">
+          <button style="border:hidden" class="bg-transparent" type="submit">
+            <input
+            class="form-check-input"
+            type="radio"
+            name="availablity"
+            id="exampleRadios1"
+            value="Not available"
+        
+          />
+          <label class="form-check-label" for="exampleRadios1" > Off </label>
+          </button>
+          
+        </div>
+      </form>
+     
+      <%}%>
+
+
+
+         <% post.forEach(function(post){%>
+         <div class="text-dark bg-light container-fluid border border-dark rounded my-3">
+          <h3 class="text-info pt-3"><%= post.title %></h3>
+          <h5><%= post.content %> </h5>
+          <p class="lead"><i class="fa fa-user"></i> by Admin
+          </p>
+          <hr>
+          <p>
+            <% if (user.role==="admin") { %> 
+              <form action="/posts/<%= post.id %>?_method=DELETE" method="post">
+        
+              <button class="btn btn-danger float-right mb-0">Delete</button>
+            </form>
+            
+              <%}%>
+            <i class="fa fa-calendar"></i> Posted on <%= post.date %> </p> 
+           
+          
+           
+          
+        
+         </div>
+         <% }); %> 
+       
+    </main>
+      
+      </div>
+      
+
+    </div>
+
+
+ 
+  

@@ -1,0 +1,82 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+<div class="row">
+<% include ../partials/side_nav %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Groups</h1>
+        </div>
+
+        <% data.forEach(function(group){%>
+<table class="table table-bordered table-striped" width="300" cellspacing="0" cellpadding="0">
+  <thead>
+    <tr>
+     
+      <th scope="col" style="width: 10%">Group Title</th>
+      <th scope="col" style="width: 40%">Description</th>
+      <th scope="col" style="width: 10%">Category</th>
+      <th scope="col" style="width: 10%">Batch</th>
+      <th scope="col" style="width: 10%">Members</th>
+      <th scope="col" style="width: 10%">Supervisor</th>
+      <% if (user.role==="admin") { %> 
+      <th scope="col" style="width: 10%">View Documents
+        <% } %> 
+      </th>
+    
+      
+      <th scope="col" style="width: 10%">Status</th>
+      <% if (user.role==="admin") { %>
+      <th scope="col" style="width: 10%">actions</th>
+      <% } %> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><%= group.title %></th>
+      <td><%= group.description %></td>
+      <td><%= group.category %></td>
+      <td><%= group.batch %></td>
+     
+    
+      
+      <td>
+      <ul class="list-group">
+        
+        <% for(var i=0; i<group.member.length; i++) {%>
+         
+  
+            <li  class="list-group-item border-0 p-0"> <%= group.member[i].name%></li>
+            <li  class="list-group-item border-0 p-0"> </li>
+        <% } %> 
+
+     </ul>
+    </td>
+      <td>    <li  class="list-group-item border-0 p-0"> <%= group.supervisor%> </li> </td>
+      <% if (user.role==="admin") { %> 
+      <td> <a href="" type="button" data-target="#groupModal"  data-toggle="modal" data-id="<%=group.id%>" data-whatever="<%=group.title%>" data-psl='{"proposal":"<%=group.proposal%>","pslA":"<%=group.proposalApproved%>"}' data-prg='{"progress":"<%=group.progress%>","prgA":"<%=group.progressApproved%>"}'
+        data-fnl='{"final":"<%=group.final%>","fnlA":"<%=group.finalApproved%>"}'>View </a></td>     
+        <% } %> 
+      <td> <%= group.approval%></td>
+      <% if (user.role==="admin") { %> 
+      <td> 
+        
+    <form action="/repository/add-group/<%= group._id %>" method="post">
+      <input type="text"name="gid" hidden value="<%= group._id %>">
+      
+      <button class=" btn btn-success">Add to repository</button>
+  </form>
+  </td>
+
+  <% } %> 
+    </tr>
+    
+   
+  </tbody>
+</table>
+<% include ../partials/approval_modal%>
+<% }); %> 
+
+</main>
+</div>
+</div>

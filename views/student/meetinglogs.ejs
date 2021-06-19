@@ -1,0 +1,33 @@
+<% include ../partials/navbar %>
+<div class="container-fluid">
+    <div class="row">
+    <% include ../partials/side_nav %>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h2">add meeting</h1>
+          <% include ../partials/messages %>
+        </div>
+        <form name="createPostForm" action="/groups/add-meeting" method="POST">
+            <div class="form-group">
+                <label for="title">meeting week</label>
+                <input type="text" class="form-control" name="meetingname" placeholder="title" ng-required="true" />
+            </div>
+            
+            <div class="form-group">
+                <label for="publishdate">Publication date</label>
+                <input type="date" class="form-control" ng-model="publishdate" name="date" ng-required="true" placeholder="yyyy-MM-dd" />
+                
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Content Discussed</label>
+                <textarea name="description" class="form-control" rows="8" cols="50" maxlength="1500" ng-minlength="1"
+                          ng-required="true" ng-model="contenttext" ng-trim="false" placeholder="Write your blog post here"></textarea>
+                
+            </div>		
+            <div class="form-group">
+                <input type="submit" value="Create post" class="btn btn-primary" ng-disabled="createPostForm.$invalid" />
+            </div>
+        </form>
+    </main>
+    </div>

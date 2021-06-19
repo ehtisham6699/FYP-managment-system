@@ -1,0 +1,27 @@
+<style>
+  .container{
+      max-width:100%;
+      /* padding-left: 0;
+      padding-right: 0; */
+      padding: 0 0 15px 0
+  };
+
+</style>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-10 " >
+    <a class="navbar-brand" href="#" font-size=200px>
+     <img src="https://seeklogo.com/images/N/numl-logo-8250E1FBC3-seeklogo.com.png" alt="Logo" style="width:40px;"><span id=logo width=150px>NUML</span> 
+   </a>
+   <div class="btn-group ml-auto ">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%=user.name %>
+    </button>
+    
+    <div class="dropdown-menu dropdown-menu-left">
+    
+      <button class="dropdown-item"  type="button"><a href="/users/update/<%= user.id %>" >edit profile</a> </button>
+      <button class="dropdown-item" type="button"><a href="/users/logout"">logout</a> </button>
+      
+    </div>
+ 
+   </div>
+ </nav>

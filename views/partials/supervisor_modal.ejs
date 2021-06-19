@@ -1,0 +1,93 @@
+<div
+  class="modal fade"
+  id="supervisorModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Grade</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/groups/groups_supervising/'+recipient">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="recipient-name"
+              name="Username"
+              value=""
+              disabled
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Meetings</label>
+            <input
+              type="number"
+              class="form-control"
+              id="recipient-name"
+              name="meetings"
+              min="0"
+              max="20"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label"
+              >Coopertaion</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="recipient-name"
+              name="cooperation"
+              min="0"
+              max="20"
+              value=""
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#supervisorModal").on("show.bs.modal", function (event) {
+    // Button that triggered the modal
+    //   var recipient = button.data('whatever') // Extract info from data-* attributes
+    var modal = $(this);
+    //get data-id attribute of the clicked element
+    var recipient = $(event.relatedTarget).data("id");
+    var Username = $(event.relatedTarget).data("whatever");
+    console.log(recipient);
+    //populate the textbox
+
+    modal.find('input[name="Username"]').val(Username);
+    modal
+      .find("form")
+      .attr("action", "/groups/groups_supervising/" + recipient);
+  });
+</script>

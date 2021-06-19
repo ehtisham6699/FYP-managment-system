@@ -1,0 +1,101 @@
+<% include ../partials/navbar %>
+<div class="container-fluid">
+    <div class="row">
+    <% include ../partials/side_nav %>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h2">Groups Under Me</h1>
+          <% include ../partials/messages %>
+        </div>
+      
+
+          
+        
+        
+        <% if (data.group.length!==0){ %>
+
+          
+          
+               
+                <% for(var i=0; i<docs.length; i++) {%>
+                    <%for(i=0; i<data.group.length; i++){ %>  
+        
+                        <form action="/groups/groups-supervised-removed/<%= data.group[i]._id %>?_method=DELETE" method="post">
+        
+                            <button class="btn btn-danger my-2">Remove: <%=data.group[i].groupname%></button>
+                          </form>
+                  
+<table class="table table-bordered" width="300" cellspacing="0" cellpadding="0">
+<thead>
+    <tr>
+    
+    <th scope="col" style="width: 10%">Group Title</th>
+    <th scope="col" style="width: 5%">batch</th>
+    <th scope="col" style="width: 15%">Group Members</th>
+    <th scope="col" style="width: 10%">Group category</th>
+    <th scope="col" style="width: 15%">Proposal Document</th>
+    <th scope="col" style="width: 15%">Progress Document</th>
+    <th scope="col" style="width: 15%">Final Document</th>
+    <th scope="col" style="width: 10%">meeting logs</th>
+  
+    </tr>
+</thead>
+<tbody>
+    <tr>
+    <td scope="row"><%= docs[i].title %></td>
+
+    <td scope="row"><%= docs[i].batch %></td>  
+     
+    <td scope="row">
+ 
+        <ul class="list-group ">
+            <%for(h=0; h<docs[i].member.length; h++){ %>  
+                      
+                <li  class="list-group-item border-0 p-1"> 
+                    <table class="table">
+                    <td scope="col" style="width: 15%"><%=docs[i].member[h].name %> <%=docs[i].member[h].rollno %></td>
+                    <td scope="col" style="width: 15%"><p><%=docs[i].member[h].supervisorMarks.graded%></p></td>
+                    <td scope="col" style="width: 10%"> 
+                        
+                    <a href="" type="button" data-target="#supervisorModal"  data-toggle="modal" data-id="<%=docs[i].member[h].id%>" data-whatever="<%=docs[i].member[h].id%>">Grade</a>
+                    </td>
+                </table>
+                    </li>                             
+                    
+   
+                <% } %>
+           </ul>
+    </td>
+    <td scope="row"><%= docs[i].category %></td>
+    <td scope="row"><a href="/groups/download/<%=docs[i].proposal %>"><%= docs[i].proposal %></a></td>
+    <td scope="row"><a href="/groups/download/<%=docs[i].progress %>"><%= docs[i].progress %></a></td>
+
+    <td scope="row"><a href="/groups/download/<%=docs[i].Final %>"><%= docs[i].Final %></a></td>
+
+  <td> <a href="meetings/<%= docs[i]._id %>"><button class="btn btn-secondary">view</button></a>
+ 
+</td>
+
+   
+    
+    
+
+<% include ../partials/supervisor_modal%>
+
+
+
+</tr>
+
+</tbody>
+
+</table>
+
+<% } %>
+
+    <% } %>
+<% } else { %>
+    <h2>NO groups enrolled ....</h2>
+    <% } %>
+</main>
+</div>
+</div>

@@ -1,0 +1,50 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+    <div class="row">
+        <% include ../partials/side_nav %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<h2>supervisors list</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        
+       
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% data.forEach(function(supervisor){%>
+            
+     <% if (supervisor.role==="supervisor"||supervisor.role==="user") { %> 
+      <tr>
+        
+       
+        <!--  -->
+        <td><%= supervisor.name %></td>
+        <td><%= supervisor.email %></td>
+   
+         
+        <td> 
+            <% if (user.role==="admin") { %> 
+                <form action="/users/<%= supervisor.id %>?_method=DELETE" method="post">
+                <button class="btn btn-danger">Delete</button>
+                <a href="/users/update/<%= supervisor.id %>" class="btn btn-info">edit</a>
+                </form>
+                <%}%>
+            <%}%>
+         
+        </td>
+             
+      </tr>
+      <% }); %> 
+     
+    </tbody>
+  </table>
+</div>
+</main>
+    </div>
+</div>

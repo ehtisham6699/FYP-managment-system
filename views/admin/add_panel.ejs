@@ -1,0 +1,140 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+<div class="row">
+<% include ../partials/side_nav %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h1 class="h2">Add Panel</h1>
+    </div>
+<form action="/panel/register" method="POST">
+    <div class="form-group">
+      <label for="title">Group title</label>
+      <input type="text" class="form-control" id="text" name="title" value="<%= typeof title != 'undefined' ? title : '' %>" placeholder="Enter name">
+      <small  class="form-text text-muted">please write name as panel 1 panel 2 etc..</small>
+    </div>
+    <h4>Category</h4>
+  
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="category" id="exampleRadios1" value="proposal" >
+      <label class="form-check-label" for="exampleRadios1">
+              Proposal
+          </label>
+    </div>
+  
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="category" id="exampleRadios1" value="progress">
+      <label class="form-check-label" for="exampleRadios1">
+              Progress
+          </label>
+    </div>
+  
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="category" id="exampleRadios1" value="final">
+      <label class="form-check-label" for="exampleRadios1">
+              Final
+          </label>
+    </div>
+   <hr>
+    <div class="form-group border">
+        <h4 class="m-3">Select Members</h4>
+        <div class="row-fluid ml-3 mb-3">
+          <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="member" data-style="btn-info" title="Member 1" name="member">
+            
+            <% data.forEach(function(student){%>
+            
+              <% if (student.role==="supervisor"||student.role==="user") { %> 
+            
+            
+                    <option data-subtext="<%= student.email %>" value="<%= student.id %>"><%= student.name %></option>
+   
+                
+                <%}%>
+
+              <% }); %> 
+            </select>
+            <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="member" data-style="btn-info" title="Member 2" name="member2">
+            
+              <% data.forEach(function(student){%>
+              
+                <% if (student.role==="supervisor"||student.role==="user") { %> 
+              
+              
+                      <option data-subtext="<%= student.email %>" value="<%= student.id %>"><%= student.name %></option>
+     
+                  
+                  <%}%>
+  
+                <% }); %> 
+              </select>
+              <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="member" data-style="btn-info" title="Member 3">
+                
+                <% data.forEach(function(student){%>
+                
+                  <% if (student.role==="student"||student.role==="user") { %> 
+                
+                
+                        <option data-subtext="<%= student.rollno %>"><%= student.name %></option>
+       
+                    
+                    <%}%>
+    
+                  <% }); %> 
+                </select>
+          </div>   
+    </div>
+  
+    <br>
+    <div class="form-group border">
+        <h4 class="m-3">Select Groups</h4>
+        <div class="row-fluid ml-3 mb-3">
+          <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="group" data-style="btn-info" title="Group 1" name="group1">
+            <% groups.forEach(function(group){%>
+                    <option data-subtext="<%= group.supervisor %>" value="<%= group.id %>"><%= group.title %></option>
+              <% }); %> 
+            </select>
+          <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="group" data-style="btn-info" title="Group 2" name="group2">
+            <% groups.forEach(function(group){%>
+                    <option data-subtext="<%= group.supervisor %>" value="<%= group.id %>"><%= group.title %></option>
+                <% }); %> 
+            </select>
+          <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="group" data-style="btn-info" title="Group 3" name="group3">
+            <% groups.forEach(function(group){%>
+                    <option data-subtext="<%= group.supervisor %>" value="<%= group.id %>"><%= group.title %></option>
+                <% }); %> 
+            </select>
+         <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="group" data-style="btn-info" title="Group 4" name="group4">
+            <% groups.forEach(function(group){%>
+                    <option data-subtext="<%= group.supervisor %>" value="<%= group.id %>"><%= group.title %></option>
+                <% }); %> 
+            </select>
+         <select class="selectpicker" data-show-subtext="true" data-live-search="true" placeholder="group" data-style="btn-info" title="Group 5" name="group5">
+            <% groups.forEach(function(group){%>
+                    <option data-subtext="<%= group.supervisor %>" value="<%= group.id %>"><%= group.title %></option>
+                <% }); %> 
+            </select>
+          </div>   
+    </div>
+  
+
+
+    <div class="form-group">
+        <h5>Description</h5>
+    
+      <textarea class="form-control"name="description" id="exampleTextarea" rows="3"></textarea>
+    </div>
+
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+</main>
+</div>
+</div>
+
+
+
+
+
+
+

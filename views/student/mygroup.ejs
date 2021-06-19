@@ -1,0 +1,167 @@
+<% include ../partials/navbar %>
+<div class="container-fluid">
+  <div class="row">
+    <% include ../partials/side_nav %>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div
+        class="
+          d-flex
+          justify-content-between
+          flex-wrap flex-md-nowrap
+          align-items-center
+          pb-2
+          mb-3
+          border-bottom
+        "
+      >
+        <h1 class="h2">My Group</h1>
+        <% include ../partials/messages %>
+      </div>
+      <% if(data.group.length!==0){%>
+      <section class="d-flex justify-content-between">
+        <div class="float-left">
+          <h3 class="h3">Proposal document</h3>
+
+          <div class="form-group">
+            <form
+              action="/groups"
+              enctype="multipart/form-data"
+              method="post"
+              style="margin-top: 10px"
+            >
+              <input
+                type="hidden"
+                name="proposal"
+                id="senderName"
+                value="proposal"
+              />
+              <input
+                type="file"
+                name="file"
+                class="form-control-file"
+                id="exampleInputFile"
+                aria-describedby="fileHelp"
+              />
+              <small id="fileHelp" class="form-text text-muted"
+                >Only upload in pdf format.</small>
+              <button type="submit" value="Upload" class="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col border-right-5">
+            <h3 class="h4 text-danger">Proposal document</h3>
+
+            <p class="text-info"><%=group.proposal %></p>
+            <a href="/groups/download/<%=group.proposal %>"
+              ><button class="btn">view</button></a
+            >
+          </div>
+          <div class="col">
+            <h4 class="">checked by HOD</h4>
+            <h6 class="<% if (group.proposalApproved==="pending") { %> text-warning  <%}%> text-success"><%=group.proposalApproved %></h6>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section class="d-flex justify-content-between">
+        <div class="float-left">
+          <h3 class="h3">Progress document</h3>
+
+          <div class="form-group">
+            <form
+              action="/groups"
+              enctype="multipart/form-data"
+              method="post"
+              style="margin-top: 10px"
+            >
+              <input
+                type="file"
+                name="file"
+                class="form-control-file"
+                id="exampleInputFile"
+                aria-describedby="fileHelp"
+              />
+              <input
+                type="hidden"
+                name="progress"
+                id="senderName"
+                value="progress"
+              />
+              <small id="fileHelp" class="form-text text-muted"
+                >Only upload in pdf format.</small
+              >
+              <button type="submit" value="Upload" class="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col border-right-5">
+            <h3 class="h4 text-danger">Progress document</h3>
+
+            <p class="text-info"><%=group.progress %></p>
+            <a href="/groups/download/<%=group.progress %>"
+              ><button class="btn">view</button></a
+            >
+          </div>
+          <div class="col">
+            <h4 class="">checked by HOD</h4>
+            <h6 class="<% if (group.progressApproved==="pending") { %> text-warning  <%}%> text-success"><%=group.progressApproved %></h6>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section class="d-flex justify-content-between">
+        <div class="float-left">
+          <h3 class="h3">Final document</h3>
+
+          <div class="form-group">
+            <form
+              action="/groups"
+              enctype="multipart/form-data"
+              method="post"
+              style="margin-top: 10px"
+            >
+              <input
+                type="file"
+                name="file"
+                class="form-control-file"
+                id="exampleInputFile"
+                aria-describedby="fileHelp"
+              />
+              <input type="hidden" name="Final" id="senderName" value="Final" />
+              <small id="fileHelp" class="form-text text-muted"
+                >Only upload in pdf format.</small
+              >
+              <button type="submit" value="Upload" class="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col border-right-5">
+            <h3 class="h4 text-danger">Defence document</h3>
+
+            <p class="text-info"><%=group.Final %></p>
+            <a href="/groups/download/<%=group.final %>"
+              ><button class="btn">view</button></a
+            >
+          </div>
+          <div class="col">
+            <h4 class="">checked by HOD</h4>
+            <h6 class="<% if (group.finalApproved==="pending") { %> text-warning  <%}%> text-success"><%=group.finalApproved %></h6>
+          </div>
+        </div>
+      </section>
+
+      <%} else { %>
+      <h2>you are not enrolled ....</h2>
+      <%}%>
+    </main>
+  </div>
+</div>

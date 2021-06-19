@@ -1,0 +1,92 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+<div class="row">
+<% include ../partials/side_nav %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Results</h1>
+        </div>
+        
+
+            <table class="table table-bordered" width="300" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr>
+                   
+                    <th scope="col" style="width: 15%">Name</th>
+                    <th scope="col" style="width: 30%">Group</th>
+                    <th scope="col" style="width: 10%">Supervisor Marks</th>
+                    <th scope="col" style="width: 10%">Proposal Marks</th>
+                    <th scope="col" style="width: 15%">Progress Marks</th>
+                    <th scope="col" style="width: 15%">Final Marks</th>
+                    <th scope="col" style="width: 15%">Total Marks</th>
+                    <th scope="col" style="width: 10%">Status</th>
+                  
+                    
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row"><%= data.name %></td>
+                    
+                    <td>
+                        <%for(i=0;i<data.group.length;i++) {%>
+                        <%= data.group[0].groupname %>
+                        <% } %>
+                    </td>
+                    <td >
+                      <input type="text" id="supervisor"value="<%= data.supervisorMarks.total%>" hidden>
+                      <%= data.supervisorMarks.total%>
+                     </td>
+                    <td >
+                        <input type="text" id="proposal"value="<%= data.proposalMarks.total%>" hidden>
+                        <%= data.proposalMarks.total%>
+                       </td>
+                    <td>
+                        <input type="text" id="progress"value="<%= data.progressMarks.total%>" hidden>
+                        <%= data.progressMarks.total%></td>
+                        <td>
+                            <input type="text" id="final"value="<%= data.finalMarks.total%>" hidden>
+                            <%= data.finalMarks.total%></td>
+                    <td id="total"></td>
+                    <td id="grade">FAIL</td>
+                  </tr>
+                </tbody>
+            </table>
+
+       
+
+</main>
+</div>
+</div>
+
+<script>
+ $(document).ready(function(){
+
+   var a = $("#proposal").val();
+   var b = $( "#progress" ).val();
+   var c = $( "#final" ).val();
+   var e = $( "#supervisor" ).val();
+   if (c) {
+    var d = parseInt(a)+parseInt(b)+parseInt(c)+parseInt(e)
+    $('#total').html(d)
+   }else if(b){
+    var d = parseInt(a)+parseInt(b)
+    $('#total').html(d)
+   }
+   else if(a||e){
+    var d = parseInt(a)+parseInt(e)
+    $('#total').html(d)
+   }
+  
+ if (d>=20) {
+    $('#grade').html("PASS")
+ }
+   
+
+
+});
+
+
+</script>

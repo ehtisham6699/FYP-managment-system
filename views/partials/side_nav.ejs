@@ -1,0 +1,152 @@
+ <style>
+   nav{
+  top: 10;
+  height: 100%;
+   }
+ </style>
+ 
+ <nav class="col-md-2  d-inline-block position-fixed <% if (user.role==="admin") { %> bg-dark  <%}%>  bg-light sidebar">
+        <div class="sidebar-sticky">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>General</span>
+          </h6>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="/dashboard">
+                <i class="fas fa-home"></i>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/groups/groups">
+                <i class="fas fa-user-friends"></i>
+                FYP groups
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/repository/repository">
+                <i class="fas fa-layer-group"></i>
+                Past projects list
+              </a>
+            </li>
+          </ul>
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Supervisor</span>
+          </h6>
+            <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="/users/supervisorlist">
+                <i class="fas fa-list"></i>
+                Supervisors list
+              </a>
+              <% if (user.role==="supervisor") { %> 
+              <li class="nav-item">
+                <a class="nav-link" href="/groups/groups_supervising">
+                  <i class="fas fa-list"></i>
+                  Groups supervising
+                </a>
+              </li>
+                      
+              <li class="nav-item">
+                <a class="nav-link" href="/panel/groups_evaluating">
+                  <i class="fas fa-user"></i>
+                  
+                  Groups evaluating
+                </a>
+              </li>
+              <%}%>  
+              <% if (user.role==="admin") { %> 
+              <li class="nav-item">
+                <a class="nav-link" href="/users/add_user">
+                  <i class="fas fa-user-plus"></i>
+                  Add Supervisor
+                </a>
+              </li>
+              <%}%>
+            </li>
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Student</span>
+            </h6>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/studentslist">
+                <i class="fas fa-list"></i>
+                Student list
+              </a>
+            </li>
+            <% if (user.role==="student") { %> 
+              <% if (user.role==="student" && user.group.length>0) { %> 
+            <li class="nav-item">
+              <a class="nav-link" href="/groups/mygroup">
+                <i class="fas fa-list"></i>
+                My group
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/groups/meetinglogs">
+                <i class="fas fa-list"></i>
+                Meetinglogs
+              </a>
+            </li>
+            <%}%>
+            <li class="nav-item">
+              <a class="nav-link" href="/groups/make-groups">
+                <i class="fas fa-users"></i>
+                Make groups
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/groups/search">
+                <i class="fas fa-address-book"></i>
+                Request supervisor
+              </a>
+            </li>
+            <%}%>
+            <% if (user.role==="admin") { %> 
+            <li class="nav-item">
+              <a class="nav-link" href="/users/add_user">
+                <i class="fas fa-user-plus"></i>
+                Add Student
+              </a>
+            </li>
+            <%}%>
+            <% if (user.role==="admin") { %> 
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>FYP Topics</span>
+            </h6>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/posts/add_fypguidelines">
+                <i class="fas fa-home"></i>
+                
+                Add fyp Guidelines
+              </a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/panel/add_panel">
+                <i class="fas fa-home"></i>
+                
+                Add Panel
+              </a>
+            </li>
+            <%}%>
+          </ul>
+
+          <% if (user.role==="student") { %> 
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Project Evaluation</span>
+            </h6>
+
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link" href="/users/results">
+                <i class="fas fa-list-alt"></i>
+                
+                Results
+              </a>
+            </li>
+      
+          </ul>
+          <%}%>
+        </div>
+      </nav>

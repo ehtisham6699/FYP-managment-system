@@ -1,0 +1,227 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+<div class="row">
+<% include ../partials/side_nav %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h1 class="h2">Add Panel</h1>
+    </div>
+    <% if (panels.length<=0) { %> 
+        <h2>no panel enrolled</h2>
+        <% }else {%>
+      
+       
+    <Select id="groupselector" class="form-control float-right bg-secondary text-white" style="width: 15%">
+        <option value="proposal">proposal</option>
+        <option value="progress">progress</option>
+        <option value="final">final</option>
+        <option value="all">all</option>
+     </Select>
+    
+    <% panels.forEach(function(panel){%>
+    
+    <% if (panel.category==="proposal") { %> 
+        <div id="proposal" class="groups" style="display:block">
+    <h3>Proposal Groups : <%= panel.title%> 
+        <form action="/panel/<%= panel.id %>?_method=DELETE" method="post">
+        
+            <button class="btn btn-danger  mb-0">Delete</button>
+          </form>
+    </h3>
+    <%for(i=0; i< panel.groups.length; i++){ %>
+        <table class="table table-bordered" width="300" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+            <th scope="col" style="width: 15%">Groupname</th>
+            <th scope="col" style="width: 15%">Members</th>
+            <th scope="col" style="width: 15%">Documents</th>
+            <th scope="col" style="width: 10%">Status</th>
+            <th scope="col" style="width: 10%">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr> 
+            <td scope="row"><p style="text-align: center;"><%=panel.groups[i].title%></p>
+            </td>
+            <td>  
+            <ul class="list-group ">
+            <%for(h=0; h<panel.groups[i].member.length; h++){ %>      
+            <li  class="list-group-item border-0 p-1"> 
+                <table class="table">
+                <td scope="col" style="width: 15%"><%=panel.groups[i].member[h].name%> <%=panel.groups[i].member[h].rollno%></td>
+                <td scope="col" style="width: 15%"><p><%=panel.groups[i].member[h].supervisorMarks.graded%></p></td>
+                <td scope="col" style="width: 10%"> 
+                    
+                <a href="" type="button" data-target="#exampleModal"  data-toggle="modal" data-id="<%=panel.groups[i].member[h].id%>" data-whatever="<%=panel.groups[i].member[h].name%>">Grade</a>
+                </td>
+            </table>
+                </li>                             
+                <% }%>      
+                </ul>         
+            </td>
+            <td>
+                <p class="text-info"></p>
+                <a href="/groups/download/<%=panel.groups[i].proposal %>"><%=panel.groups[i].proposal %></a>
+            </td>  
+            <td> <%=panel.groups[i].approval%></td>     
+            <td>
+                <form action="/groups/onclickgroupapproval/<%= panel.groups[i]._id %>" method="post">
+                    <input type="text"name="gid" hidden value="<%= panel.groups[i]._id %>">
+                    
+                    <button class=" btn btn-primary">approve</button>
+                </form>
+               
+            </td>  
+        </tr>
+        </tbody>
+        </table>
+        <% }%>
+    </div>
+    <% }%>
+    <% if (panel.category==="progress") { %> 
+    <div id="progress" class="groups" style="display:block">
+    <h3> Progress Groups <%= panel.title%> 
+         <form action="/panel/<%= panel.id %>?_method=DELETE" method="post">
+        <button class="btn btn-danger  mb-0">Delete</button>
+      </form>
+    </h3>
+    
+    <%for(i=0; i< panel.groups.length; i++){ %>
+        <table class="table table-bordered" width="300" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+            <th scope="col" style="width: 15%">Groupname</th>
+            <th scope="col" style="width: 15%">Members</th>
+            <th scope="col" style="width: 15%">Documents</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr> 
+            <td scope="row"><p style="text-align: center;"><%=panel.groups[i].title%></p>
+            </td>
+            <td>  
+            <ul class="list-group ">
+            <%for(h=0; h<panel.groups[i].member.length; h++){ %>      
+            <li  class="list-group-item border-0 p-1"> 
+                <table class="table">
+                <td scope="col" style="width: 15%"><%=panel.groups[i].member[h].name%> <%=panel.groups[i].member[h].rollno%></td>
+                <td scope="col" style="width: 15%"><p><%=panel.groups[i].member[h].progressMarks.graded%></p></td>
+                <td scope="col" style="width: 10%"> 
+                    
+                <a href="" type="button" data-target="#progressModal"  data-toggle="modal" data-id="<%=panel.groups[i].member[h].id%>" data-whatever="<%=panel.groups[i].member[h].name%>">Grade</a>
+                </td>
+            </table>
+                </li>                             
+                <% }%>      
+                </ul>         
+            </td>
+            <td>
+                <p class="text-info"></p>
+                <a href="/groups/download/<%=panel.groups[i].progress %>"><%=panel.groups[i].progress %></a>
+            </td>         
+        </tr>
+        </tbody>
+        </table>
+        <% }%>
+        </div>
+    <% }%>
+    <% if (panel.category==="final") { %> 
+        <div id="final" class="groups" style="display:block">
+    <h3>Defence Groups:  <%= panel.title%>
+        <form action="/panel/<%= panel.id %>?_method=DELETE" method="post">
+            <button class="btn btn-danger  mb-0">Delete</button>
+          </form>
+    </h3>
+    
+    <%for(i=0; i< panel.groups.length; i++){ %>
+        <table class="table table-bordered" width="300" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+            <th scope="col" style="width: 15%">Groupname</th>
+            <th scope="col" style="width: 15%">Members</th>
+            <th scope="col" style="width: 15%">Documents</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr> 
+            <td scope="row"><p style="text-align: center;"><%=panel.groups[i].title%></p>
+            </td>
+            <td>  
+            <ul class="list-group ">
+            <%for(h=0; h<panel.groups[i].member.length; h++){ %>      
+            <li  class="list-group-item border-0 p-1"> 
+                <table class="table">
+                <td scope="col" style="width: 15%"><%=panel.groups[i].member[h].name%> <%=panel.groups[i].member[h].rollno%></td>
+                <td scope="col" style="width: 15%"><p><%=panel.groups[i].member[h].finalMarks.graded%></p></td>
+                <td scope="col" style="width: 10%"> 
+                    
+                <a href="" type="button" data-target="#finalModal"  data-toggle="modal" data-id="<%=panel.groups[i].member[h].id%>" data-whatever="<%=panel.groups[i].member[h].name%>">Grade</a>
+                </td>
+            </table>
+                </li>                             
+                <% }%>      
+                </ul>         
+            </td>
+            <td>
+                <p class="text-info"></p>
+                <a href="/groups/download/<%=panel.groups[i].proposal %>"><%=panel.groups[i].proposal %></a>
+            </td>         
+        </tr>
+        </tbody>
+        </table>
+        <% }%>
+    </div>
+
+    <% }%>
+
+
+<% }); %> 
+
+<% }%>
+</main>
+</div>
+</div>
+<!-- modal -->
+<% include ../partials/modals %>
+<script>    
+
+$(document).ready(function(){
+    $('#groupselector').on('change', function() {
+      if ( this.value == 'proposal')
+      {
+      
+        $("#progress").hide();
+        $("#proposal").show();
+        $("#final").hide();
+      }
+      else if( this.value == 'progress')
+      {
+        $("#proposal").hide();
+        $("#progress").show();
+        $("#final").hide();
+      }
+      else if( this.value == 'final')
+      {
+        $("#progress").hide();
+        $("#final").show();
+        $("#proposal").hide();
+      }
+      else if( this.value == 'all')
+      {
+        $("#proposal").show();
+        $("#progress").show();
+        $("#final").show();
+      }
+    });
+});
+
+
+</script>
+
+
+
+
+ 

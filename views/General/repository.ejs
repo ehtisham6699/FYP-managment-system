@@ -1,0 +1,129 @@
+<% include ../partials/navbar %>
+
+<div class="container-fluid">
+<div class="row">
+<% include ../partials/side_nav %>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Repository</h1>
+        </div>
+        <Select id="categoryselector" class="form-control float-right bg-secondary text-white " title="sort" style="width: 15%">
+            <option value="web">web</option>
+            <option value="mobile">mobile</option>
+            <option value="desktop">desktop</option>
+            <option value="all">all</option>
+         </Select>
+    <table class="table table-bordered table-striped mt-3" width="300" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+           
+            <th scope="col" style="width: 15%">Group Title</th>
+            
+            <th scope="col" style="width: 10%">Category</th>
+            <th scope="col" style="width: 15%">Members</th>
+            <th scope="col" style="width: 15%">batch</th>
+            <th scope="col" style="width: 15%">Report</th>
+           
+          </tr>
+        </thead>
+    
+      
+            <tbody>
+                <% data.forEach(function(g){%>
+                  
+            <% if (g.category==="web") { %> 
+               
+                <tr class="web">
+                    
+                    <td><%= g.title %></td>
+                    <td><%= g.category %></td>
+                    <td><%= g.member %></td>
+                  
+                    <td><%= g.batch %></td>
+                    <td><a href="/groups/download/<%=g.report %>"><%= g.report %></a></td>
+                
+                </tr>
+            
+                <% } %> 
+            
+           
+                <% if (g.category==="desktop") { %> 
+                    
+              
+                    <tr class="desktop">
+                        <td><%= g.title %></td>
+                        <td><%= g.category %></td>
+                        <td><%= g.member %></td>
+                      
+                        <td><%= g.batch %></td>
+                        <td><a href="/groups/download/<%=g.report %>"><%= g.report %></a></td>
+                    
+                 
+                        
+                    </tr>
+                
+                        <% } %> 
+                <% if (g.category==="mobile") { %> 
+            
+      
+                  <tr class="mobile">
+                      <td><%= g.title %></td>
+                      <td><%= g.category %></td>
+                      <td><%= g.member %></td>
+                    
+                      <td><%= g.batch %></td>
+                  
+                      <td><a href="/groups/download/<%=g.report %>"><%= g.report %></a></td>
+                
+                      
+                  </tr>
+              
+                      <% } %> 
+                  
+                <% }); %> 
+            </tbody>   
+
+        
+</table>
+</div>
+</div>
+
+<script>    
+
+    $(document).ready(function(){
+        $('#categoryselector').on('change', function() {
+          if ( this.value =='web')
+          {
+            $(".web").show();
+            $(".desktop").hide();
+            $(".mobile").hide();
+          }
+         
+          else if( this.value == "desktop")
+          {
+           
+            $(".web").hide();
+            $(".desktop").show();
+            $(".mobile").hide();
+          }
+          else if( this.value == 'mobile')
+          {
+            $(".mobile").show();
+            $(".desktop").hide();
+            $(".web").hide();
+            
+          }
+          else if( this.value == 'all')
+          {
+            $(".web").show();
+            $(".desktop").show();
+            $(".mobile").show();
+            
+          }
+        });
+    });
+    
+    
+    </script>
